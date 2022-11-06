@@ -3,10 +3,10 @@ namespace nl\rwslinkman\SimpleRssFeedRenderer;
 
 class RssFeed
 {
-    private FeedRendererInterface $feedRenderer;
+    private ?FeedRendererInterface $feedRenderer;
     private array $channels;
 
-    public function __construct(FeedRendererInterface $renderer) {
+    public function __construct(?FeedRendererInterface $renderer = null) {
         $this->channels = array();
         $this->feedRenderer = $renderer;
     }

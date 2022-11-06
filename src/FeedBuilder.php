@@ -1,8 +1,6 @@
 <?php
 namespace nl\rwslinkman\SimpleRssFeedRenderer;
 
-use RuntimeException;
-
 class FeedBuilder
 {
     // default channel
@@ -12,8 +10,6 @@ class FeedBuilder
     private array $items;
     // additional channels (optional)
     private array $otherChannels;
-    // rendering
-    private ?FeedRendererInterface $renderer;
 
     public function __construct() {
         $this->channelTitle = "";
@@ -24,10 +20,7 @@ class FeedBuilder
     }
 
     public function build(): RssFeed {
-        if($this->renderer == null) {
-            throw new RuntimeException("Renderer must be set. Call withFeedRenderer() first.");
-        }
-        $feed = new RssFeed($this->renderer);
+        $feed = new RssFeed();
 
         // default channel
         $channel = new RssChannel();
@@ -67,16 +60,6 @@ class FeedBuilder
     /** @noinspection PhpUnused */
     public function withCustomChannel(RssChannel $channel): static {
         $this->otherChannels[] = $channel;
-        return $this;
-    }
-
-    public function withFeedRenderer(FeedRendererInterface $renderer): static {
-        $this->renderer = $renderer;
-        return $this;
-    }
-
-    public function withPrettyPrintXML(bool $enabled): static {
-        $this->renderer?->configurePrettyPrint($enabled);
         return $this;
     }
 
