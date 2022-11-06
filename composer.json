@@ -1,0 +1,28 @@
+{
+    "name": "rwslinkman/simple-rss-feed-renderer",
+    "description": "Basic object-to-RSS renderer for hosting an RSS feed",
+    "type": "library",
+    "license": "Apache-2.0",
+    "autoload": {
+        "psr-4": {
+            "nl\\rwslinkman\\SimpleRssFeedRenderer\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "nl\\rwslinkman\\SimpleRssFeedRenderer\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Rick Slinkman",
+            "email": "rw.slinkman@gmail.com"
+        }
+    ],
+    "require": {
+        "ext-simplexml": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}
