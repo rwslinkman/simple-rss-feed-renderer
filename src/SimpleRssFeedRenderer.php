@@ -16,7 +16,7 @@ class SimpleRssFeedRenderer implements FeedRendererInterface
 
         foreach($feed->getChannels() as $channel) {
             $rssChannel = $rss->addChild("channel");
-            $channel->decoreate($rssChannel);
+            $channel->decorate($rssChannel);
 
             // foreach item
             foreach($channel->getItems() as $item) {

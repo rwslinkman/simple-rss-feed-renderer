@@ -69,7 +69,7 @@ class RssChannel
         return $this->items;
     }
 
-    public function decoreate(SimpleXMLElement $rssChannel)
+    public function decorate(SimpleXMLElement $rssChannel)
     {
         $rssChannel->addChild("title", $this->getTitle());
         $rssChannel->addChild("link", $this->getUrl());
