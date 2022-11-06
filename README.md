@@ -1,5 +1,11 @@
 # SimpleRssFeedRenderer
-Basic object-to-RSS renderer for hosting an RSS feed    
+Basic object-to-RSS renderer for hosting an RSS feed
+
+# Installation
+Add `simple-rss-feed-renderer` to your dependencies using Composer:   
+```shell
+composer require rwslinkman/simple-rss-feed-renderer
+```
 
 # Usage
 Please find below an example of how to use `SimpleXmlFeedRenderer`.   
@@ -23,7 +29,6 @@ foreach ($articlesList as $article) {
         ->withPubDate($article->getCreatedAt())
         ->buildItem();
 }
-
 
 // Don't forget to set "application/rss+xml" for the "Content-Type" header
 $rssXml = $feedBuilder->build();
