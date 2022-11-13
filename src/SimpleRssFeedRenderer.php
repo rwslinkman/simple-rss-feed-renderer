@@ -11,8 +11,6 @@ class SimpleRssFeedRenderer implements FeedRendererInterface
 
     function render(RssFeed $feed): string
     {
-        $feed->configureRenderer($this);
-
         $rss = new SimpleXMLElement(self::RSS_FEED_DECLARATION);
         $rss->addAttribute("version", "2.0");
 

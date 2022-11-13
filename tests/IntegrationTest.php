@@ -1,13 +1,35 @@
 <?php
 namespace nl\rwslinkman\SimpleRssFeedRenderer\Tests;
 
+use DateTime;
 use nl\rwslinkman\SimpleRssFeedRenderer\FeedBuilder;
+use nl\rwslinkman\SimpleRssFeedRenderer\RssFeed;
 use nl\rwslinkman\SimpleRssFeedRenderer\SimpleRssFeedRenderer;
 use PHPUnit\Framework\TestCase;
 
-class IntegrationTests extends TestCase
+class IntegrationTest extends TestCase
 {
     public function testReadMeSample() {
+        $rssFeed = $this->createTestFeed();
+
+        // Rendering the RSS feed
+        $renderer = new SimpleRssFeedRenderer();
+        $renderer->configurePrettyPrint(true);
+        $rssXml = $renderer->render($rssFeed);
+
+        $this->assertNotNull($rssXml);
+        $this->assertNotEquals("", $rssXml);
+    }
+
+    private function createTestArticle($id, $title, $subtitle) {
+        return array('id' => $id, 'title' => $title, 'subtitle' => $subtitle, 'createdAt' => new DateTime());
+    }
+
+    /**
+     * @return RssFeed
+     */
+    private function createTestFeed(): RssFeed
+    {
         // Some sample data
         $articlesList = array(
             $this->createTestArticle(1, "Article #1", "This is the 1st article"),
@@ -31,18 +53,6 @@ class IntegrationTests extends TestCase
                 ->withPubDate($article['createdAt'])
                 ->buildItem();
         }
-        $rssFeed = $feedBuilder->build();
-
-        // Rendering the RSS feed
-        $renderer = new SimpleRssFeedRenderer();
-        $renderer->configurePrettyPrint(true);
-        $rssXml = $renderer->render($rssFeed);
-
-        $this->assertNotNull($rssXml);
-        $this->assertNotEquals("", $rssXml);
-    }
-
-    private function createTestArticle($id, $title, $subtitle) {
-        return array('id' => $id, 'title' => $title, 'subtitle' => $subtitle, 'createdAt' => new \DateTime());
+        return $feedBuilder->build();
     }
 }

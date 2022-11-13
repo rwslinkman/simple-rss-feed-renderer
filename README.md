@@ -36,3 +36,10 @@ $renderer = new SimpleRssFeedRenderer();
 $renderer->configurePrettyPrint(true);
 $rssXml = $renderer->render($rssFeed);
 ```
+
+# Other
+Run `phpunit` tests with or without coverage:    
+```shell
+./scripts/run_phpunit.sh 
+./scripts/run_phpunit_coverage.sh 
+```

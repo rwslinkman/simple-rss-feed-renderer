@@ -5,7 +5,7 @@ use nl\rwslinkman\SimpleRssFeedRenderer\FeedBuilder;
 use nl\rwslinkman\SimpleRssFeedRenderer\SimpleRssFeedRenderer;
 use PHPUnit\Framework\TestCase;
 
-class SimpleRssFeedRendererTests extends TestCase
+class SimpleRssFeedRendererTest extends TestCase
 {
     function testGivenFeedWithOneItem_whenRender_thenShouldReturnValidRssXml() {
 
