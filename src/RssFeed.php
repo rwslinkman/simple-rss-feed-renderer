@@ -1,21 +1,27 @@
 <?php
 namespace nl\rwslinkman\SimpleRssFeedRenderer;
 
+use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssChannel;
+
+/**
+ * https://www.rssboard.org/rss-specification
+ */
 class RssFeed
 {
-    private array $channels;
+    // https://www.rssboard.org/rss-specification#whatIsRss
+    private RssChannel $channel;
 
-    public function __construct() {
-        $this->channels = array();
-    }
-
-    public function addChannel(RssChannel $channel) {
-        $this->channels[] = $channel;
-    }
-
-    /** @return RssChannel[] */
-    public function getChannels(): array
+    /**
+     * @param RssChannel $channel
+     */
+    public function __construct(RssChannel $channel)
     {
-        return $this->channels;
+        $this->channel = $channel;
+    }
+
+    /** @return RssChannel */
+    public function getChannel(): RssChannel
+    {
+        return $this->channel;
     }
 }

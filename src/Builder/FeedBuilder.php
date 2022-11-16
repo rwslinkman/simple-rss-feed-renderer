@@ -1,42 +1,37 @@
 <?php
-namespace nl\rwslinkman\SimpleRssFeedRenderer;
+namespace nl\rwslinkman\SimpleRssFeedRenderer\Builder;
+
+use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssChannel;
+use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssItem;
+use nl\rwslinkman\SimpleRssFeedRenderer\RssFeed;
 
 class FeedBuilder
 {
-    // default channel
+    // Mandatory items
     private string $channelTitle;
     private string $channelDescription;
     private string $channelUrl;
     private array $items;
-    // additional channels (optional)
-    private array $otherChannels;
+    // optional items
 
     public function __construct() {
         $this->channelTitle = "";
         $this->channelDescription = "";
         $this->channelUrl = "";
         $this->items = array();
-        $this->otherChannels = array();
     }
 
     public function build(): RssFeed {
-        $feed = new RssFeed();
-
-        // default channel
         $channel = new RssChannel();
+        // Channel metadata
         $channel->setTitle($this->channelTitle);
         $channel->setDescription($this->channelDescription);
-        $channel->setUrl($this->channelUrl);
+        $channel->setLink($this->channelUrl);
+        // Add items individually
         foreach($this->items as $item) {
             $channel->addItem($item);
         }
-        $feed->addChannel($channel);
-
-        // other channels
-        foreach($this->otherChannels as $ch) {
-            $feed->addChannel($ch);
-        }
-        return $feed;
+        return new RssFeed($channel);
     }
 
     public function withChannelTitle(string $channelTitle): static
@@ -54,12 +49,6 @@ class FeedBuilder
     public function withChannelUrl(string $url): static
     {
         $this->channelUrl = $url;
-        return $this;
-    }
-
-    /** @noinspection PhpUnused */
-    public function withCustomChannel(RssChannel $channel): static {
-        $this->otherChannels[] = $channel;
         return $this;
     }
 

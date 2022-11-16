@@ -2,7 +2,7 @@
 namespace nl\rwslinkman\SimpleRssFeedRenderer\Tests;
 
 use DateTime;
-use nl\rwslinkman\SimpleRssFeedRenderer\FeedBuilder;
+use nl\rwslinkman\SimpleRssFeedRenderer\Builder\FeedBuilder;
 use nl\rwslinkman\SimpleRssFeedRenderer\RssFeed;
 use nl\rwslinkman\SimpleRssFeedRenderer\SimpleRssFeedRenderer;
 use PHPUnit\Framework\TestCase;

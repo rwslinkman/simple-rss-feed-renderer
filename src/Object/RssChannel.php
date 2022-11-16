@@ -1,15 +1,19 @@
 <?php
-namespace nl\rwslinkman\SimpleRssFeedRenderer;
+namespace nl\rwslinkman\SimpleRssFeedRenderer\Object;
 
 use SimpleXMLElement;
 
 class RssChannel
 {
+    // https://www.rssboard.org/rss-specification#requiredChannelElements
     private string $title;
     private string $description;
-    private string $url;
+    private string $link;
     private array $items = array();
-
+    // https://www.rssboard.org/rss-specification#optionalChannelElements
+    private string $language;
+    private string $copyright;
+    private string $managingEditor;
 
     /**
      * @return string
@@ -30,9 +34,9 @@ class RssChannel
     /**
      * @return string
      */
-    public function getUrl(): string
+    public function getLink(): string
     {
-        return $this->url;
+        return $this->link;
     }
 
     /**
@@ -52,13 +56,17 @@ class RssChannel
     }
 
     /**
-     * @param string $url
+     * @param string $link
      */
-    public function setUrl(string $url): void
+    public function setLink(string $link): void
     {
-        $this->url = $url;
+        $this->link = $link;
     }
 
+    /**
+     * @param RssItem $item
+     * @return void
+     */
     public function addItem(RssItem $item)
     {
         $this->items[] = $item;
@@ -72,7 +80,7 @@ class RssChannel
     public function decorate(SimpleXMLElement $rssChannel)
     {
         $rssChannel->addChild("title", $this->getTitle());
-        $rssChannel->addChild("link", $this->getUrl());
+        $rssChannel->addChild("link", $this->getLink());
         $rssChannel->addChild("description", $this->getDescription());
 
         $channelAtom = $rssChannel->addChild("atom:atom:link"); //add atom node

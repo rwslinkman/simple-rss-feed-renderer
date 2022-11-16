@@ -1,7 +1,7 @@
 <?php
 namespace nl\rwslinkman\SimpleRssFeedRenderer\Tests;
 
-use nl\rwslinkman\SimpleRssFeedRenderer\FeedBuilder;
+use nl\rwslinkman\SimpleRssFeedRenderer\Builder\FeedBuilder;
 use nl\rwslinkman\SimpleRssFeedRenderer\SimpleRssFeedRenderer;
 use PHPUnit\Framework\TestCase;
 

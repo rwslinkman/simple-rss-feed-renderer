@@ -1,5 +1,5 @@
 <?php
-namespace nl\rwslinkman\SimpleRssFeedRenderer;
+namespace nl\rwslinkman\SimpleRssFeedRenderer\Object;
 
 use SimpleXMLElement;
 

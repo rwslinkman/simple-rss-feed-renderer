@@ -1,7 +1,8 @@
 <?php
-namespace nl\rwslinkman\SimpleRssFeedRenderer;
+namespace nl\rwslinkman\SimpleRssFeedRenderer\Builder;
 
 use DateTimeInterface;
+use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssItem;
 
 class FeedItemBuilder
 {
@@ -12,9 +13,6 @@ class FeedItemBuilder
     private string $url;
     private \DateTime $pubDate;
 
-    // additional channels (optional)
-    private array $otherChannels;
-
     public function __construct(FeedBuilder $parent)
     {
         $this->parentBuilder = $parent;
@@ -23,7 +21,7 @@ class FeedItemBuilder
         $this->url = "";
     }
 
-    public function buildItem(): void {
+    public function buildItem(): FeedBuilder {
         $pubDate = $this->pubDate->format(DateTimeInterface::RSS);
 
         $item = new RssItem();
@@ -33,6 +31,7 @@ class FeedItemBuilder
         $item->setPubDate($pubDate);
 
         $this->parentBuilder->withBuiltItem($item);
+        return $this->parentBuilder;
     }
 
     public function withTitle(string $channelTitle): static
