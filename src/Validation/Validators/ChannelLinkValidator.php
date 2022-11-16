@@ -10,6 +10,6 @@ class ChannelLinkValidator implements Validator
 
     function validate(RssFeed $candidate): ValidationResult
     {
-        // TODO: Implement validate() method.
+        return ValidationResult::ok();
     }
 }

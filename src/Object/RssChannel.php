@@ -84,7 +84,7 @@ class RssChannel
         $rssChannel->addChild("description", $this->getDescription());
 
         $channelAtom = $rssChannel->addChild("atom:atom:link"); //add atom node
-        $channelAtom->addAttribute("href", "https://rwslinkman.nl"); //add atom node attribute
+        $channelAtom->addAttribute("href", $this->getLink()); //add atom node attribute
         $channelAtom->addAttribute("rel", "self");
         $channelAtom->addAttribute("type", "application/rss+xml");
     }

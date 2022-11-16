@@ -1,6 +1,9 @@
 <?php
 namespace nl\rwslinkman\SimpleRssFeedRenderer\Tests;
 
+use DateTime;
+use DOMDocument;
+use DOMElement;
 use nl\rwslinkman\SimpleRssFeedRenderer\Builder\FeedBuilder;
 use nl\rwslinkman\SimpleRssFeedRenderer\SimpleRssFeedRenderer;
 use PHPUnit\Framework\TestCase;
@@ -12,21 +15,32 @@ class SimpleRssFeedRendererTest extends TestCase
         $feedBuilder = (new FeedBuilder())
             ->withChannelTitle("Fun facts")
             ->withChannelDescription("Daily fun facts for you to read")
-            ->withChannelUrl("https://funfacts.nl/articles");
-        $feedBuilder
+            ->withChannelUrl("https://funfacts.nl/articles")
             ->addItem()
-            ->withTitle("TestTitle")
-            ->withDescription("TestDescription")
-            ->withUrl("https://test.com")
-            ->withPubDate(new \DateTime())
+                ->withTitle("TestTitle")
+                ->withDescription("TestDescription")
+                ->withUrl("https://test.com")
+                ->withPubDate(new DateTime())
+            ->buildItem()
+            ->addImage()
+                ->withTitle("TestImage")
+                ->withUrl("https://funfacts.nl/logo.png")
+                ->withLink("https://funfacts.nl")
+            ->buildImage()
+            ->addItem()
+                ->withTitle("TestTitle2")
+                ->withDescription("TestDescription2")
+                ->withUrl("https://test2.com")
+                ->withPubDate(new DateTime())
             ->buildItem();
         $feed = $feedBuilder->build();
         $renderer = new SimpleRssFeedRenderer();
+        $renderer->configureValidateBeforeRender(true);
 
         $result = $renderer->render($feed);
 
         $this->assertNotNull($result);
-        $resultDOM = new \DOMDocument();
+        $resultDOM = new DOMDocument();
         $resultDOM->loadXML($result);
         $resultChannels = $resultDOM->getElementsByTagName("channel");
         $this->assertEquals(1, $resultChannels->count());
@@ -43,7 +57,7 @@ class SimpleRssFeedRendererTest extends TestCase
         $this->assertEquals("Daily fun facts for you to read", $descriptionElement->textContent);
         $atomLinkElement = $this->nodeByTagName($resultChannel->childNodes, "atom:link");
         $this->assertNotNull($atomLinkElement);
-        $this->assertEquals("https://rwslinkman.nl", $atomLinkElement->getAttribute("href"));
+        $this->assertEquals("https://funfacts.nl/articles", $atomLinkElement->getAttribute("href"));
         $this->assertEquals("self", $atomLinkElement->getAttribute("rel"));
         $this->assertEquals("application/rss+xml", $atomLinkElement->getAttribute("type"));
         $itemElement = $this->nodeByTagName($resultChannel->childNodes, "item");
@@ -73,7 +87,7 @@ class SimpleRssFeedRendererTest extends TestCase
             ->withTitle("TestTitle")
             ->withDescription("TestDescription")
             ->withUrl("https://test.com")
-            ->withPubDate(new \DateTime())
+            ->withPubDate(new DateTime())
             ->buildItem();
         $feed = $feedBuilder->build();
         $renderer = new SimpleRssFeedRenderer();
@@ -82,7 +96,7 @@ class SimpleRssFeedRendererTest extends TestCase
         $result = $renderer->render($feed);
 
         $this->assertNotNull($result);
-        $resultDOM = new \DOMDocument();
+        $resultDOM = new DOMDocument();
         $resultDOM->loadXML($result);
         $resultChannels = $resultDOM->getElementsByTagName("channel");
         $this->assertEquals(1, $resultChannels->count());
@@ -99,7 +113,7 @@ class SimpleRssFeedRendererTest extends TestCase
         $this->assertEquals("Daily fun facts for you to read", $descriptionElement->textContent);
         $atomLinkElement = $this->nodeByTagName($resultChannel->childNodes, "atom:link");
         $this->assertNotNull($atomLinkElement);
-        $this->assertEquals("https://rwslinkman.nl", $atomLinkElement->getAttribute("href"));
+        $this->assertEquals("https://funfacts.nl/articles", $atomLinkElement->getAttribute("href"));
         $this->assertEquals("self", $atomLinkElement->getAttribute("rel"));
         $this->assertEquals("application/rss+xml", $atomLinkElement->getAttribute("type"));
         $itemElement = $this->nodeByTagName($resultChannel->childNodes, "item");
@@ -130,7 +144,7 @@ class SimpleRssFeedRendererTest extends TestCase
         $result = $renderer->render($feed);
 
         $this->assertNotNull($result);
-        $resultDOM = new \DOMDocument();
+        $resultDOM = new DOMDocument();
         $resultDOM->loadXML($result);
         $resultChannels = $resultDOM->getElementsByTagName("channel");
         $this->assertEquals(1, $resultChannels->count());
@@ -147,15 +161,15 @@ class SimpleRssFeedRendererTest extends TestCase
         $this->assertEquals("Daily fun facts for you to read", $descriptionElement->textContent);
         $atomLinkElement = $this->nodeByTagName($resultChannel->childNodes, "atom:link");
         $this->assertNotNull($atomLinkElement);
-        $this->assertEquals("https://rwslinkman.nl", $atomLinkElement->getAttribute("href"));
+        $this->assertEquals("https://funfacts.nl/articles", $atomLinkElement->getAttribute("href"));
         $this->assertEquals("self", $atomLinkElement->getAttribute("rel"));
         $this->assertEquals("application/rss+xml", $atomLinkElement->getAttribute("type"));
     }
 
-    private function nodeByTagName($nodes, $tagName): ?\DOMElement
+    private function nodeByTagName($nodes, $tagName): ?DOMElement
     {
         foreach($nodes as $child) {
-            if($child instanceof \DOMElement) {
+            if($child instanceof DOMElement) {
                 if($child->tagName === $tagName) {
                     return $child;
                 }

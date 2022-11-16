@@ -10,6 +10,14 @@ class RssItem
     private string $description;
     private string $pubDate;
 
+    public function decorate(SimpleXMLElement $rssItem)
+    {
+        $rssItem->addChild("title", $this->getTitle());
+        $rssItem->addChild("link", $this->getUrl());
+        $rssItem->addChild("pubDate", $this->getPubDate());
+        $rssItem->addChild("description", $this->getDescription());
+    }
+
     /**
      * @return string
      */
@@ -72,13 +80,5 @@ class RssItem
     public function setPubDate(string $pubDate): void
     {
         $this->pubDate = $pubDate;
-    }
-
-    public function decorate(SimpleXMLElement $rssItem)
-    {
-        $rssItem->addChild("title", $this->getTitle());
-        $rssItem->addChild("link", $this->getUrl());
-        $rssItem->addChild("pubDate", $this->getPubDate());
-        $rssItem->addChild("description", $this->getDescription());
     }
 }

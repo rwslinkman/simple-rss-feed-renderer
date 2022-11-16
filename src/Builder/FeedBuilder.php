@@ -2,6 +2,7 @@
 namespace nl\rwslinkman\SimpleRssFeedRenderer\Builder;
 
 use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssChannel;
+use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssChannelImage;
 use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssItem;
 use nl\rwslinkman\SimpleRssFeedRenderer\RssFeed;
 
@@ -57,9 +58,18 @@ class FeedBuilder
         return new FeedItemBuilder($this);
     }
 
+    public function addImage(): ImageDataBuilder {
+        return new ImageDataBuilder($this);
+    }
+
     public function withBuiltItem(RssItem $item): static
     {
         $this->items[] = $item;
+        return $this;
+    }
+
+    public function withBuiltImage(RssChannelImage $image): static {
+        $this->image = $image;
         return $this;
     }
 }

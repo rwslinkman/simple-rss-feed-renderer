@@ -1,6 +1,7 @@
 <?php
 namespace nl\rwslinkman\SimpleRssFeedRenderer\Builder;
 
+use DateTime;
 use DateTimeInterface;
 use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssItem;
 
@@ -11,7 +12,7 @@ class FeedItemBuilder
     private string $title;
     private string $description;
     private string $url;
-    private \DateTime $pubDate;
+    private DateTime $pubDate;
 
     public function __construct(FeedBuilder $parent)
     {
@@ -52,7 +53,7 @@ class FeedItemBuilder
         return $this;
     }
 
-    public function withPubDate(\DateTime $pubDate): static {
+    public function withPubDate(DateTime $pubDate): static {
         $this->pubDate = $pubDate;
         return $this;
     }
