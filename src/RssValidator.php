@@ -5,8 +5,9 @@ use JetBrains\PhpStorm\Pure;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\InvalidRssException;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\ItemValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\ValidationReport;
-use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\ChannelValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelDescriptionValidator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelLanguageValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelLinkValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelTitleValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ItemMinimalValidator;
@@ -14,7 +15,7 @@ use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ItemMinimalValidat
 class RssValidator
 {
     /**
-     * @var array|Validator[]
+     * @var array|ChannelValidator[]
      */
     private array $validations = array();
 
@@ -27,6 +28,7 @@ class RssValidator
         $this->validations[] = new ChannelTitleValidator();
         $this->validations[] = new ChannelLinkValidator();
         $this->validations[] = new ChannelDescriptionValidator();
+        $this->validations[] = new ChannelLanguageValidator();
         $this->itemValidations[] = new ItemMinimalValidator();
     }
 

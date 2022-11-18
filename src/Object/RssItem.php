@@ -5,17 +5,25 @@ use SimpleXMLElement;
 
 class RssItem
 {
+    // Required attributes
     private string $title;
-    private string $url;
+    private string $link;
     private string $description;
-    private string $pubDate;
+    // Optional attributes
+    private ?string $author;
+    private ?string $category;
+    private ?string $comments;
+//    private object $enclosure;
+//    private object $guid;
+    private ?string $pubDate;
+//    private object $source;
 
     public function decorate(SimpleXMLElement $rssItem)
     {
         $rssItem->addChild("title", $this->getTitle());
-        $rssItem->addChild("link", $this->getUrl());
-        $rssItem->addChild("pubDate", $this->getPubDate());
+        $rssItem->addChild("link", $this->getLink());
         $rssItem->addChild("description", $this->getDescription());
+        $rssItem->addChild("pubDate", $this->getPubDate());
     }
 
     /**
@@ -37,17 +45,17 @@ class RssItem
     /**
      * @return string
      */
-    public function getUrl(): string
+    public function getLink(): string
     {
-        return $this->url;
+        return $this->link;
     }
 
     /**
-     * @param string $url
+     * @param string $link
      */
-    public function setUrl(string $url): void
+    public function setLink(string $link): void
     {
-        $this->url = $url;
+        $this->link = $link;
     }
 
     /**

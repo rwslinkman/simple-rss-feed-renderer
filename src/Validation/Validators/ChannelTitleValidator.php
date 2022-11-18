@@ -6,9 +6,9 @@ use JetBrains\PhpStorm\Pure;
 use nl\rwslinkman\SimpleRssFeedRenderer\RssFeed;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\BasicValidations;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\ValidationResult;
-use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\ChannelValidator;
 
-class ChannelTitleValidator implements Validator
+class ChannelTitleValidator implements ChannelValidator
 {
     #[Pure] public function validate(RssFeed $candidate): ValidationResult {
         $title = $candidate->getChannel()->getTitle();

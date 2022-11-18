@@ -3,7 +3,7 @@ namespace nl\rwslinkman\SimpleRssFeedRenderer\Validation;
 
 use nl\rwslinkman\SimpleRssFeedRenderer\RssFeed;
 
-interface Validator
+interface ChannelValidator
 {
     function validate(RssFeed $candidate): ValidationResult;
 }

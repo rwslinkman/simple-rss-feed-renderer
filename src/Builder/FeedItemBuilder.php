@@ -28,7 +28,7 @@ class FeedItemBuilder
         $item = new RssItem();
         $item->setTitle($this->title);
         $item->setDescription($this->description);
-        $item->setUrl($this->url);
+        $item->setLink($this->url);
         $item->setPubDate($pubDate);
 
         $this->parentBuilder->withBuiltItem($item);
