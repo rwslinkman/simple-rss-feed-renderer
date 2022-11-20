@@ -2,6 +2,7 @@
 namespace nl\rwslinkman\SimpleRssFeedRenderer\Tests;
 
 use DateTime;
+use DateTimeInterface;
 use DOMDocument;
 use DOMElement;
 use nl\rwslinkman\SimpleRssFeedRenderer\Builder\FeedBuilder;
@@ -15,7 +16,16 @@ class SimpleRssFeedRendererTest extends TestCase
     function testGivenFeedWithTwoItems_whenRender_thenShouldReturnValidRssXml() {
         $testDate = new DateTime();
         $feedBuilder = $this->getRssFeedChannelBuilder()
-            // TODO: Add attributes
+            ->withChannelLanguage("nl-nl")
+            ->withChannelCopyright("Copyright notice for content in the channel")
+            ->withChannelManagingEditor("manager@funfacts.nl")
+            ->withChannelWebMaster("webmaster@funfacts.nl")
+            ->withChannelPubDate($testDate)
+            ->withChannelLastBuildDate($testDate)
+            ->withChannelCategory("Facts")
+            ->withChannelGenerator()
+            ->withChannelDocs("https://funfacts.nl/docs")
+            ->withChannelTtl(60)
             ->addItem()
                 ->withTitle("TestTitle")
                 ->withDescription("TestDescription")
@@ -55,12 +65,17 @@ class SimpleRssFeedRendererTest extends TestCase
         $this->validate($resultChannel, "title", "Fun facts");
         $this->validate($resultChannel, "link", "https://funfacts.nl/articles");
         $this->validate($resultChannel, "description", "Daily fun facts for you to read");
-        // Channel AtomLink validation
-        $atomLinkElement = $this->nodeByTagName($resultChannel->childNodes, "atom:link");
-        $this->assertNotNull($atomLinkElement);
-        $this->assertEquals("https://funfacts.nl/articles", $atomLinkElement->getAttribute("href"));
-        $this->assertEquals("self", $atomLinkElement->getAttribute("rel"));
-        $this->assertEquals("application/rss+xml", $atomLinkElement->getAttribute("type"));
+        $this->validateAtomLink($resultChannel);
+        $this->validate($resultChannel, "language", "nl-nl");
+        $this->validate($resultChannel, "copyright", "Copyright notice for content in the channel");
+        $this->validate($resultChannel, "managingEditor", "manager@funfacts.nl");
+        $this->validate($resultChannel, "webMaster", "webmaster@funfacts.nl");
+        $this->validate($resultChannel, "pubDate", $testDate->format(DateTimeInterface::RSS));
+        $this->validate($resultChannel, "lastBuildDate", $testDate->format(DateTimeInterface::RSS));
+        $this->validate($resultChannel, "category", "Facts");
+        $this->validate($resultChannel, "generator", "rwslinkman/simple-rss-feed-renderer");
+        $this->validate($resultChannel, "docs", "https://funfacts.nl/docs");
+        $this->validate($resultChannel, "ttl", 60);
         // Channel image validation
         $imageElement = $this->nodeByTagName($resultChannel->childNodes, "image");
         $this->assertNotNull($imageElement);
@@ -93,7 +108,6 @@ class SimpleRssFeedRendererTest extends TestCase
         $feed = (new FeedBuilder())
             ->withChannelTitle("Fun facts")
             ->withChannelDescription("Daily fun facts for you to read")
-            // TODO: Add attributes
             ->withChannelUrl("https://funfacts.nl/articles")
             ->addItem()
                 ->withTitle("TestTitle")
@@ -119,12 +133,7 @@ class SimpleRssFeedRendererTest extends TestCase
         $this->validate($resultChannel, "title", "Fun facts");
         $this->validate($resultChannel, "link", "https://funfacts.nl/articles");
         $this->validate($resultChannel, "description", "Daily fun facts for you to read");
-        // Channel AtomLink validation
-        $atomLinkElement = $this->nodeByTagName($resultChannel->childNodes, "atom:link");
-        $this->assertNotNull($atomLinkElement);
-        $this->assertEquals("https://funfacts.nl/articles", $atomLinkElement->getAttribute("href"));
-        $this->assertEquals("self", $atomLinkElement->getAttribute("rel"));
-        $this->assertEquals("application/rss+xml", $atomLinkElement->getAttribute("type"));
+        $this->validateAtomLink($resultChannel);
 
         // Item validation
         $itemElement = $this->nodeByTagName($resultChannel->childNodes, "item");
@@ -139,7 +148,6 @@ class SimpleRssFeedRendererTest extends TestCase
         $feed = (new FeedBuilder())
             ->withChannelTitle("Fun facts")
             ->withChannelDescription("Daily fun facts for you to read")
-            // TODO: Add attributes
             ->withChannelUrl("https://funfacts.nl/articles")
             ->build();
         $renderer = new SimpleRssFeedRenderer();
@@ -159,11 +167,7 @@ class SimpleRssFeedRendererTest extends TestCase
         $this->validate($resultChannel, "link", "https://funfacts.nl/articles");
         $this->validate($resultChannel, "description", "Daily fun facts for you to read");
         // Channel AtomLink validation
-        $atomLinkElement = $this->nodeByTagName($resultChannel->childNodes, "atom:link");
-        $this->assertNotNull($atomLinkElement);
-        $this->assertEquals("https://funfacts.nl/articles", $atomLinkElement->getAttribute("href"));
-        $this->assertEquals("self", $atomLinkElement->getAttribute("rel"));
-        $this->assertEquals("application/rss+xml", $atomLinkElement->getAttribute("type"));
+        $this->validateAtomLink($resultChannel);
     }
 
     private function nodeByTagName($nodes, $tagName, $nth = 1): ?DOMElement
@@ -187,5 +191,18 @@ class SimpleRssFeedRendererTest extends TestCase
         $descriptionElement = $this->nodeByTagName($parent->childNodes, $tagName);
         $this->assertNotNull($descriptionElement);
         $this->assertEquals($expectedValue, $descriptionElement->textContent);
+    }
+
+    /**
+     * @param \DOMNode|null $resultChannel
+     * @return void
+     */
+    private function validateAtomLink(?\DOMNode $resultChannel): void
+    {
+        $atomLinkElement = $this->nodeByTagName($resultChannel->childNodes, "atom:link");
+        $this->assertNotNull($atomLinkElement);
+        $this->assertEquals("https://funfacts.nl/articles", $atomLinkElement->getAttribute("href"));
+        $this->assertEquals("self", $atomLinkElement->getAttribute("rel"));
+        $this->assertEquals("application/rss+xml", $atomLinkElement->getAttribute("type"));
     }
 }

@@ -39,9 +39,40 @@ class RssChannel
         $channelAtom->addAttribute("rel", "self");
         $channelAtom->addAttribute("type", "application/rss+xml");
 
+        if($this->language != null) {
+            $rssChannel->addChild("language", $this->getLanguage());
+        }
+        if($this->copyright != null) {
+            $rssChannel->addChild("copyright", $this->getCopyright());
+        }
+        if($this->managingEditor != null) {
+            $rssChannel->addChild("managingEditor", $this->getManagingEditor());
+        }
+        if($this->webMaster != null) {
+            $rssChannel->addChild("webMaster", $this->getWebMaster());
+        }
+        if($this->pubDate != null) {
+            $rssChannel->addChild("pubDate", $this->getPubDate());
+        }
+        if($this->lastBuildDate != null) {
+            $rssChannel->addChild("lastBuildDate", $this->getLastBuildDate());
+        }
+        if($this->category != null) {
+            $rssChannel->addChild("category", $this->getCategory());
+        }
+        if($this->generator != null) {
+            $rssChannel->addChild("generator", $this->getGenerator());
+        }
+        if($this->docs != null) {
+            $rssChannel->addChild("docs", $this->getDocs());
+        }
+        if($this->ttl != null) {
+            $rssChannel->addChild("ttl", $this->getTtl());
+        }
+
         if($this->image != null) {
             $rssChannelImage = $rssChannel->addChild("image");
-            $this->image->decorate($rssChannelImage);
+            $this->getImage()->decorate($rssChannelImage);
         }
     }
 

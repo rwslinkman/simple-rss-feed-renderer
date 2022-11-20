@@ -2,6 +2,7 @@
 namespace nl\rwslinkman\SimpleRssFeedRenderer\Builder;
 
 use DateTime;
+use DateTimeInterface;
 use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssChannel;
 use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssChannelImage;
 use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssItem;
@@ -40,18 +41,29 @@ class FeedBuilder
     }
 
     public function build(): RssFeed {
-        $channel = new RssChannel();
+        $pubDate = $this->channelPubDate?->format(DateTimeInterface::RSS);
+        $lastBuildDate = $this->channelLastBuildDate?->format(DateTimeInterface::RSS);
+
         // Channel metadata
+        $channel = new RssChannel();
         $channel->setTitle($this->channelTitle);
         $channel->setDescription($this->channelDescription);
         $channel->setLink($this->channelUrl);
         $channel->setLanguage($this->channelLanguage);
         $channel->setCopyright($this->channelCopyright);
+        $channel->setManagingEditor($this->channelManagingEditor);
+        $channel->setWebMaster($this->channelWebMaster);
+        $channel->setPubDate($pubDate);
+        $channel->setLastBuildDate($lastBuildDate);
+        $channel->setCategory($this->channelCategory);
+        $channel->setGenerator($this->channelGenerator);
+        $channel->setDocs($this->channelDocs);
+        $channel->setTtl($this->channelTtl);
+        $channel->setImage($this->channelImage);
         // Add items individually
         foreach($this->items as $item) {
             $channel->addItem($item);
         }
-        $channel->setImage($this->channelImage);
         return new RssFeed($channel);
     }
 
