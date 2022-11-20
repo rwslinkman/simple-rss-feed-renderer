@@ -1,24 +1,26 @@
 <?php
 namespace nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators;
 
+use JetBrains\PhpStorm\Pure;
 use nl\rwslinkman\SimpleRssFeedRenderer\RssFeed;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\ChannelValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\ValidationResult;
 
-class ChannelLanguageValidator implements \nl\rwslinkman\SimpleRssFeedRenderer\Validation\ChannelValidator
+class ChannelLanguageValidator implements ChannelValidator
 {
+    private string $languageRegex = "/^[a-z]{2}-[a-z]{2,}/";
 
-    function validate(RssFeed $candidate): ValidationResult
+    #[Pure] function validate(RssFeed $candidate): ValidationResult
     {
         $language = $candidate->getChannel()->getLanguage();
         if($language == null) {
             return ValidationResult::ok();
         }
 
-        $primaryLanguage = substr($language, 0, 2);
-        $secondaryLanguage = substr($language, 3, 5);
-        $dash = substr(2, 3);
-        echo $primaryLanguage;
-        echo $secondaryLanguage;
-        echo $dash;
+        $matching = preg_grep($this->languageRegex, array($language));
+        if(count($matching) == 0) {
+            return ValidationResult::invalid("Language '$language' is not a valid language");
+        }
+        return ValidationResult::ok();
     }
 }

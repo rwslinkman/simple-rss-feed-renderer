@@ -12,7 +12,7 @@ class ChannelDescriptionValidator implements ChannelValidator
     {
         $description = $candidate->getChannel()->getDescription();
         if(BasicValidations::isNullOrBlank($description)) {
-            return ValidationResult::invalid("RSS channel description cannot be empty");
+            return ValidationResult::invalid("Channel description cannot be empty");
         }
         return ValidationResult::ok();
     }

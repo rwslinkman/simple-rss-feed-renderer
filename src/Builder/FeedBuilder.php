@@ -45,6 +45,8 @@ class FeedBuilder
         $channel->setTitle($this->channelTitle);
         $channel->setDescription($this->channelDescription);
         $channel->setLink($this->channelUrl);
+        $channel->setLanguage($this->channelLanguage);
+        $channel->setCopyright($this->channelCopyright);
         // Add items individually
         foreach($this->items as $item) {
             $channel->addItem($item);
@@ -69,13 +71,6 @@ class FeedBuilder
         $this->channelUrl = $url;
         return $this;
     }
-
-    //$webMaster = null;
-    //$pubDate = null;
-    //$lastBuildDate = null;
-    //$category = null;
-    //$generator = null;
-    //$docs = null;
 
     public function withChannelLanguage(string $language): static {
         $this->channelLanguage = $language;

@@ -13,10 +13,10 @@ class ChannelLinkValidator implements ChannelValidator
     {
         $link = $candidate->getChannel()->getLink();
         if(BasicValidations::isNullOrBlank($link)) {
-            return ValidationResult::invalid("RSS channel link cannot be empty");
+            return ValidationResult::invalid("Channel link cannot be empty");
         }
         if (filter_var($link, FILTER_VALIDATE_URL) === false) {
-            return ValidationResult::invalid("RSS channel link must be a valid URL");
+            return ValidationResult::invalid("Channel link must be a valid URL");
         }
         return ValidationResult::ok();
     }

@@ -6,13 +6,13 @@ use SimpleXMLElement;
 class RssItem
 {
     // Required attributes
-    private string $title;
-    private string $link;
-    private string $description;
+    private string $title = "";
+    private string $link = "";
+    private string $description = "";
     // Optional attributes
-    private ?string $author;
-    private ?string $category;
-    private ?string $comments;
+    private ?string $author = null;
+    private ?string $category = null;
+    private ?string $comments = null;
 //    private object $enclosure;
 //    private object $guid;
     private ?string $pubDate;
