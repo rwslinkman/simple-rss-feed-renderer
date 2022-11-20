@@ -1,6 +1,8 @@
 <?php
 namespace nl\rwslinkman\SimpleRssFeedRenderer;
 
+use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssFeed;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\RssValidator;
 use SimpleXMLElement;
 
 class SimpleRssFeedRenderer implements FeedRendererInterface

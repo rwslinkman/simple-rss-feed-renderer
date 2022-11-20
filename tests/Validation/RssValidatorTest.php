@@ -1,10 +1,11 @@
 <?php
 
-namespace nl\rwslinkman\SimpleRssFeedRenderer\Tests;
+namespace nl\rwslinkman\SimpleRssFeedRenderer\Tests\Validation;
 
 use Exception;
-use nl\rwslinkman\SimpleRssFeedRenderer\RssValidator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Tests\TestRssFeedBuildingTrait;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\InvalidRssException;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\RssValidator;
 use PHPUnit\Framework\TestCase;
 
 class RssValidatorTest extends TestCase

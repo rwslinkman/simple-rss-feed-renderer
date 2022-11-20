@@ -4,7 +4,7 @@ namespace nl\rwslinkman\SimpleRssFeedRenderer\Tests\Validation\Validators;
 
 use DateTime;
 use DateTimeInterface;
-use nl\rwslinkman\SimpleRssFeedRenderer\RssFeed;
+use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssFeed;
 use nl\rwslinkman\SimpleRssFeedRenderer\Tests\TestRssFeedBuildingTrait;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelPubDateValidator;
 use PHPUnit\Framework\TestCase;

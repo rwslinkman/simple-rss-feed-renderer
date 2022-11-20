@@ -1,7 +1,5 @@
 <?php
-namespace nl\rwslinkman\SimpleRssFeedRenderer;
-
-use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssChannel;
+namespace nl\rwslinkman\SimpleRssFeedRenderer\Object;
 
 /**
  * https://www.rssboard.org/rss-specification

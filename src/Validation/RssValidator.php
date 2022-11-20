@@ -1,11 +1,8 @@
 <?php
-namespace nl\rwslinkman\SimpleRssFeedRenderer;
+namespace nl\rwslinkman\SimpleRssFeedRenderer\Validation;
 
 use JetBrains\PhpStorm\Pure;
-use nl\rwslinkman\SimpleRssFeedRenderer\Validation\InvalidRssException;
-use nl\rwslinkman\SimpleRssFeedRenderer\Validation\ItemValidator;
-use nl\rwslinkman\SimpleRssFeedRenderer\Validation\ValidationReport;
-use nl\rwslinkman\SimpleRssFeedRenderer\Validation\ChannelValidator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssFeed;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelCopyrightValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelDescriptionValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelLanguageValidator;

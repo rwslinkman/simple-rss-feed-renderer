@@ -5,8 +5,8 @@ use DateTime;
 use DateTimeInterface;
 use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssChannel;
 use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssChannelImage;
+use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssFeed;
 use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssItem;
-use nl\rwslinkman\SimpleRssFeedRenderer\RssFeed;
 
 class FeedBuilder
 {

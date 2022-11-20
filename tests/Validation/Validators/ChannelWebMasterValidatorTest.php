@@ -2,7 +2,7 @@
 
 namespace nl\rwslinkman\SimpleRssFeedRenderer\Tests\Validation\Validators;
 
-use nl\rwslinkman\SimpleRssFeedRenderer\RssFeed;
+use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssFeed;
 use nl\rwslinkman\SimpleRssFeedRenderer\Tests\TestRssFeedBuildingTrait;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelWebMasterValidator;
 use PHPUnit\Framework\TestCase;
