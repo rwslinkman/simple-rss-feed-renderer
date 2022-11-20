@@ -28,7 +28,7 @@ class FeedItemBuilder
     }
 
     public function buildItem(): FeedBuilder {
-        $pubDate = $this->pubDate->format(DateTimeInterface::RSS);
+        $pubDate = $this->pubDate?->format(DateTimeInterface::RSS);
 
         $item = new RssItem();
         $item->setTitle($this->title);
