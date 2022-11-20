@@ -8,13 +8,6 @@ use nl\rwslinkman\SimpleRssFeedRenderer\RssFeed;
 
 trait TestRssFeedBuildingTrait
 {
-    function buildRssFeedChannelWithLanguage($language): RssFeed
-    {
-        return $this->getRssFeedChannelBuilder()
-            ->withChannelLanguage($language)
-            ->build();
-    }
-
     function buildRssFeedChannel(): RssFeed
     {
         return $this->getRssFeedChannelBuilder()

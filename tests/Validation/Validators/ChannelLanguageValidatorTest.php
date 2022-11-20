@@ -1,6 +1,7 @@
 <?php
 namespace nl\rwslinkman\SimpleRssFeedRenderer\Tests\Validation\Validators;
 
+use nl\rwslinkman\SimpleRssFeedRenderer\RssFeed;
 use nl\rwslinkman\SimpleRssFeedRenderer\Tests\TestRssFeedBuildingTrait;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelLanguageValidator;
 use PHPUnit\Framework\TestCase;
@@ -45,5 +46,12 @@ class ChannelLanguageValidatorTest extends TestCase
 
         $this->assertFalse($result->isValid());
         $this->assertEquals("Language 'someValue' is not a valid language", $result->getErrorMessage());
+    }
+
+    private function buildRssFeedChannelWithLanguage($language): RssFeed
+    {
+        return $this->getRssFeedChannelBuilder()
+            ->withChannelLanguage($language)
+            ->build();
     }
 }
