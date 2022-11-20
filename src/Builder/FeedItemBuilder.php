@@ -9,17 +9,22 @@ class FeedItemBuilder
 {
     private FeedBuilder $parentBuilder;
 
-    private string $title;
-    private string $description;
-    private string $url;
+    private string $title = "";
+    private string $description = "";
+    private string $url = "";
+    // Optional attributes
+    private ?string $author = null;
+    private ?string $category = null;
+    private ?string $comments = null;
+//    private object $enclosure;
+//    private object $guid;
     private DateTime $pubDate;
+//    private object $source;
+
 
     public function __construct(FeedBuilder $parent)
     {
         $this->parentBuilder = $parent;
-        $this->title = "";
-        $this->description = "";
-        $this->url = "";
     }
 
     public function buildItem(): FeedBuilder {
@@ -29,6 +34,9 @@ class FeedItemBuilder
         $item->setTitle($this->title);
         $item->setDescription($this->description);
         $item->setLink($this->url);
+        $item->setAuthor($this->author);
+        $item->setCategory($this->category);
+        $item->setComments($this->comments);
         $item->setPubDate($pubDate);
 
         $this->parentBuilder->withBuiltItem($item);
@@ -50,6 +58,21 @@ class FeedItemBuilder
     public function withUrl(string $url): static
     {
         $this->url = $url;
+        return $this;
+    }
+
+    public function withAuthor(string $author): static {
+        $this->author = $author;
+        return $this;
+    }
+
+    public function withCategory(string $category): static {
+        $this->category = $category;
+        return $this;
+    }
+
+    public function withComments(string $comments): static {
+        $this->comments = $comments;
         return $this;
     }
 

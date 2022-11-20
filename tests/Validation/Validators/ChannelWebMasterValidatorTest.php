@@ -51,7 +51,7 @@ class ChannelWebMasterValidatorTest extends TestCase
         $this->assertEquals("Webmaster cannot be empty when provided", $result->getErrorMessage());
     }
 
-    function testGivenNonEmailWebMaster_whenValidte_thenShouldReturnInvalid() {
+    function testGivenNonEmailWebMaster_whenValidate_thenShouldReturnInvalid() {
         $feed = $this->buildRssFeedChannelWithWebMaster("someone's name");
         $validator = new ChannelWebMasterValidator();
 

@@ -8,14 +8,13 @@ use nl\rwslinkman\SimpleRssFeedRenderer\Validation\ValidationResult;
 
 class ChannelLinkValidator implements ChannelValidator
 {
-
     function validate(RssFeed $candidate): ValidationResult
     {
         $link = $candidate->getChannel()->getLink();
         if(BasicValidations::isNullOrBlank($link)) {
             return ValidationResult::invalid("Channel link cannot be empty");
         }
-        if (filter_var($link, FILTER_VALIDATE_URL) === false) {
+        if(!BasicValidations::isUrlValid($link)) {
             return ValidationResult::invalid("Channel link must be a valid URL");
         }
         return ValidationResult::ok();

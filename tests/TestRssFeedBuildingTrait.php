@@ -3,6 +3,7 @@
 namespace nl\rwslinkman\SimpleRssFeedRenderer\Tests;
 
 use nl\rwslinkman\SimpleRssFeedRenderer\Builder\FeedBuilder;
+use nl\rwslinkman\SimpleRssFeedRenderer\Builder\FeedItemBuilder;
 use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssFeed;
 use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssItem;
 

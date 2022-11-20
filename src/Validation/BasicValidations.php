@@ -14,4 +14,8 @@ abstract class BasicValidations
         $created = DateTime::createFromFormat(DateTimeInterface::RSS, $candiDate);
         return $created && $created->format(DateTimeInterface::RSS) === $candiDate;
     }
+
+    public static function isUrlValid($candidate): bool {
+        return !(filter_var($candidate, FILTER_VALIDATE_URL) === false);
+    }
 }

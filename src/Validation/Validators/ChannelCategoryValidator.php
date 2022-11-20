@@ -1,24 +1,23 @@
 <?php
+
 namespace nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators;
 
 use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssFeed;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\ChannelValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\ValidationResult;
 
-class ChannelLanguageValidator implements ChannelValidator
+class ChannelCategoryValidator implements ChannelValidator
 {
-    private string $languageRegex = "/^[a-z]{2}-[a-z]{2,}/";
 
     function validate(RssFeed $candidate): ValidationResult
     {
-        $language = $candidate->getChannel()->getLanguage();
-        if($language == null) {
+        $category = $candidate->getChannel()->getCategory();
+        if($category === null) {
             return ValidationResult::ok();
         }
 
-        $matching = preg_grep($this->languageRegex, array($language));
-        if(count($matching) == 0) {
-            return ValidationResult::invalid("Language '$language' is not a valid language");
+        if(trim($category) === '') {
+            return ValidationResult::invalid("Channel category cannot be empty when provided");
         }
         return ValidationResult::ok();
     }

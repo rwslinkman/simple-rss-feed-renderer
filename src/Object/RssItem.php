@@ -5,17 +5,16 @@ use SimpleXMLElement;
 
 class RssItem
 {
-    // Required attributes
-    private string $title = "";
-    private string $link = "";
-    private string $description = "";
     // Optional attributes
+    private ?string $title = null;
+    private ?string $link = null;
+    private ?string $description = null;
     private ?string $author = null;
     private ?string $category = null;
     private ?string $comments = null;
 //    private object $enclosure;
 //    private object $guid;
-    private ?string $pubDate;
+    private ?string $pubDate = null;
 //    private object $source;
 
     public function decorate(SimpleXMLElement $rssItem)
@@ -23,69 +22,128 @@ class RssItem
         $rssItem->addChild("title", $this->getTitle());
         $rssItem->addChild("link", $this->getLink());
         $rssItem->addChild("description", $this->getDescription());
+
+        if($this->author !== null) {
+            $rssItem->addChild("author", $this->getAuthor());
+        }
+        if($this->category !== null) {
+            $rssItem->addChild("category", $this->getCategory());
+        }
+        if($this->comments !== null) {
+            $rssItem->addChild("comments", $this->getComments());
+        }
+
         $rssItem->addChild("pubDate", $this->getPubDate());
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
     /**
-     * @param string $title
+     * @param string|null $title
      */
-    public function setTitle(string $title): void
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLink(): string
+    public function getLink(): ?string
     {
         return $this->link;
     }
 
     /**
-     * @param string $link
+     * @param string|null $link
      */
-    public function setLink(string $link): void
+    public function setLink(?string $link): void
     {
         $this->link = $link;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
     /**
-     * @param string $description
+     * @param string|null $description
      */
-    public function setDescription(string $description): void
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPubDate(): string
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param string|null $author
+     */
+    public function setAuthor(?string $author): void
+    {
+        $this->author = $author;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param string|null $category
+     */
+    public function setCategory(?string $category): void
+    {
+        $this->category = $category;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getComments(): ?string
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param string|null $comments
+     */
+    public function setComments(?string $comments): void
+    {
+        $this->comments = $comments;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPubDate(): ?string
     {
         return $this->pubDate;
     }
 
     /**
-     * @param string $pubDate
+     * @param string|null $pubDate
      */
-    public function setPubDate(string $pubDate): void
+    public function setPubDate(?string $pubDate): void
     {
         $this->pubDate = $pubDate;
     }

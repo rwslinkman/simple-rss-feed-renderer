@@ -2,8 +2,6 @@
 
 namespace nl\rwslinkman\SimpleRssFeedRenderer\Validation;
 
-use JetBrains\PhpStorm\Pure;
-
 class ValidationReport
 {
     /**
@@ -21,7 +19,7 @@ class ValidationReport
         $this->results[] = $result;
     }
 
-    #[Pure] public function hasInvalidResults(): bool
+    public function hasInvalidResults(): bool
     {
         foreach ($this->results as $result) {
             if (!$result->isValid()) {
@@ -31,7 +29,7 @@ class ValidationReport
         return false;
     }
 
-    #[Pure] public function getInvalidResults(): array
+    public function getInvalidResults(): array
     {
         $invalid = array();
         foreach ($this->results as $result) {

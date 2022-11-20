@@ -30,6 +30,9 @@ class SimpleRssFeedRendererTest extends TestCase
                 ->withTitle("TestTitle")
                 ->withDescription("TestDescription")
                 ->withUrl("https://test.com")
+                ->withAuthor("author@test.com")
+                ->withCategory("TestCategory")
+                ->withComments("https://test.com/testtitle/comment-section")
                 ->withPubDate($testDate)
             ->buildItem()
             ->addImage()
@@ -93,6 +96,9 @@ class SimpleRssFeedRendererTest extends TestCase
         $this->validate($itemElement, "link", "https://test.com");
         $this->validate($itemElement, "pubDate",  $testDate->format(DATE_RSS));
         $this->validate($itemElement, "description",  "TestDescription");
+        $this->validate($itemElement, "author", "author@test.com");
+        $this->validate($itemElement, "category", "TestCategory");
+        $this->validate($itemElement, "comments", "https://test.com/testtitle/comment-section");
 
         // Item 2 validation
         $itemElement = $this->nodeByTagName($resultChannel->childNodes, "item", 2);

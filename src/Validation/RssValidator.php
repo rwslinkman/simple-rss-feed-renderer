@@ -1,18 +1,29 @@
 <?php
 namespace nl\rwslinkman\SimpleRssFeedRenderer\Validation;
 
-use JetBrains\PhpStorm\Pure;
 use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssFeed;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelCategoryValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelCopyrightValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelDescriptionValidator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelDocsValidator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelGeneratorValidator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelImageValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelLanguageValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelLastBuildDateValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelLinkValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelManagingEditorValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelPubDateValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelTitleValidator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelTtlValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelWebMasterValidator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ItemAuthorValidator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ItemCategoryValidator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ItemCommentsValidator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ItemDescriptionValidator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ItemLinkValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ItemMinimalValidator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ItemPubDateValidator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ItemTitleValidator;
 
 class RssValidator
 {
@@ -26,7 +37,7 @@ class RssValidator
      */
     private array $itemValidations = array();
 
-    #[Pure] public function __construct() {
+    public function __construct() {
         $this->validations[] = new ChannelTitleValidator();
         $this->validations[] = new ChannelLinkValidator();
         $this->validations[] = new ChannelDescriptionValidator();
@@ -36,12 +47,20 @@ class RssValidator
         $this->validations[] = new ChannelWebMasterValidator();
         $this->validations[] = new ChannelPubDateValidator();
         $this->validations[] = new ChannelLastBuildDateValidator();
-        // TODO: Validator for $category
-        // TODO: Validator for $generator
-        // TODO: Validator for $docs
-        // TODO: Validator for $image
+        $this->validations[] = new ChannelCategoryValidator();
+        $this->validations[] = new ChannelGeneratorValidator();
+        $this->validations[] = new ChannelDocsValidator();
+        $this->validations[] = new ChannelTtlValidator();
+        $this->validations[] = new ChannelImageValidator();
+        // Item validations
         $this->itemValidations[] = new ItemMinimalValidator();
-        // TODO: Validators for item attributes
+        $this->itemValidations[] = new ItemTitleValidator();
+        $this->itemValidations[] = new ItemLinkValidator();
+        $this->itemValidations[] = new ItemDescriptionValidator();
+        $this->itemValidations[] = new ItemAuthorValidator();
+        $this->itemValidations[] = new ItemCategoryValidator();
+        $this->itemValidations[] = new ItemCommentsValidator();
+        $this->itemValidations[] = new ItemPubDateValidator();
     }
 
     /**

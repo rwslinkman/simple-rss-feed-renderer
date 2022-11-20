@@ -1,18 +1,16 @@
 <?php
 namespace nl\rwslinkman\SimpleRssFeedRenderer\Validation;
 
-use JetBrains\PhpStorm\Pure;
-
 class ValidationResult
 {
     private bool $isValid;
     private ?string $errorMessage;
 
-    #[Pure] public static function ok(): ValidationResult {
+    public static function ok(): ValidationResult {
         return new ValidationResult(true);
     }
 
-    #[Pure] public static function invalid(string $error): ValidationResult {
+    public static function invalid(string $error): ValidationResult {
         return new ValidationResult(false, $error);
     }
 
