@@ -16,10 +16,10 @@ class FeedItemBuilder
     private ?string $author = null;
     private ?string $category = null;
     private ?string $comments = null;
-//    private object $enclosure;
-//    private object $guid;
-    private DateTime $pubDate;
-//    private object $source;
+//    private ?object $enclosure;
+//    private ?object $guid;
+    private ?DateTime $pubDate = null;
+//    private ?object $source;
 
 
     public function __construct(FeedBuilder $parent)
