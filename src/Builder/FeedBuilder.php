@@ -51,6 +51,7 @@ class FeedBuilder
         foreach($this->items as $item) {
             $channel->addItem($item);
         }
+        $channel->setImage($this->channelImage);
         return new RssFeed($channel);
     }
 

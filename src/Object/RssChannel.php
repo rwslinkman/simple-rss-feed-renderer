@@ -38,6 +38,11 @@ class RssChannel
         $channelAtom->addAttribute("href", $this->getLink()); //add atom node attribute
         $channelAtom->addAttribute("rel", "self");
         $channelAtom->addAttribute("type", "application/rss+xml");
+
+        if($this->image != null) {
+            $rssChannelImage = $rssChannel->addChild("image");
+            $this->image->decorate($rssChannelImage);
+        }
     }
 
     /**
