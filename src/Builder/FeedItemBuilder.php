@@ -9,10 +9,10 @@ class FeedItemBuilder
 {
     private FeedBuilder $parentBuilder;
 
-    private string $title = "";
-    private string $description = "";
-    private string $url = "";
     // Optional attributes
+    private ?string $title = null;
+    private ?string $description = null;
+    private ?string $link = null;
     private ?string $author = null;
     private ?string $category = null;
     private ?string $comments = null;
@@ -33,7 +33,7 @@ class FeedItemBuilder
         $item = new RssItem();
         $item->setTitle($this->title);
         $item->setDescription($this->description);
-        $item->setLink($this->url);
+        $item->setLink($this->link);
         $item->setAuthor($this->author);
         $item->setCategory($this->category);
         $item->setComments($this->comments);
@@ -55,9 +55,9 @@ class FeedItemBuilder
         return $this;
     }
 
-    public function withUrl(string $url): static
+    public function withLink(string $link): static
     {
-        $this->url = $url;
+        $this->link = $link;
         return $this;
     }
 

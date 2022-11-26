@@ -49,7 +49,7 @@ class IntegrationTest extends TestCase
                 ->addItem()
                 ->withTitle($article['title'])
                 ->withDescription($article['subtitle'])
-                ->withUrl("https://funfacts.nl/articles/" . $article['id'])
+                ->withLink("https://funfacts.nl/articles/" . $article['id'])
                 ->withPubDate($article['createdAt'])
                 ->buildItem();
         }

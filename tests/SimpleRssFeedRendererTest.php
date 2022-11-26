@@ -29,7 +29,7 @@ class SimpleRssFeedRendererTest extends TestCase
             ->addItem()
                 ->withTitle("TestTitle")
                 ->withDescription("TestDescription")
-                ->withUrl("https://test.com")
+                ->withLink("https://test.com")
                 ->withAuthor("author@test.com")
                 ->withCategory("TestCategory")
                 ->withComments("https://test.com/testtitle/comment-section")
@@ -46,7 +46,7 @@ class SimpleRssFeedRendererTest extends TestCase
             ->addItem()
                 ->withTitle("TestTitle2")
                 ->withDescription("TestDescription2")
-                ->withUrl("https://test2.com")
+                ->withLink("https://test2.com")
                 ->withPubDate($testDate)
             ->buildItem();
         $feed = $feedBuilder->build();
@@ -118,7 +118,7 @@ class SimpleRssFeedRendererTest extends TestCase
             ->addItem()
                 ->withTitle("TestTitle")
                 ->withDescription("TestDescription")
-                ->withUrl("https://test.com")
+                ->withLink("https://test.com")
                 ->withPubDate($testDate)
             ->buildItem()
             ->build();
