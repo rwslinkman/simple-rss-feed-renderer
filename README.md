@@ -61,3 +61,11 @@ Run `phpunit` tests with or without coverage:
 ./scripts/run_phpunit.sh 
 ./scripts/run_phpunit_coverage.sh 
 ```
+
+Mutation tests can be run using the [Infection](https://infection.github.io/guide/installation.html) framework.      
+Install the framework locally as described on the website.   
+After installing, run the following command from the project root folder:    
+
+```shell
+infection --threads=10
+```
