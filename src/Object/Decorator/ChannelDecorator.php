@@ -57,11 +57,22 @@ class ChannelDecorator implements ObjectDecorator
         if($this->source->getTtl() != null) {
             $element->addChild("ttl", $this->source->getTtl());
         }
-
         if($this->source->getImage() != null) {
             $rssChannelImage = $element->addChild("image");
             $imageDecorator = new ChannelImageDecorator($this->source->getImage());
             $imageDecorator->decorate($rssChannelImage);
+        }
+        if($this->source->getSkipHours() !== null) {
+            $channelSkipHoursElement = $element->addChild("skipHours");
+            foreach($this->source->getSkipHours() as $skipHour) {
+                $channelSkipHoursElement->addChild("hour", $skipHour);
+            }
+        }
+        if($this->source->getSkipDays() !== null) {
+            $channelSkipDaysElement = $element->addChild("skipDays");
+            foreach($this->source->getSkipDays() as $skipDay) {
+                $channelSkipDaysElement->addChild("day", $skipDay);
+            }
         }
     }
 }

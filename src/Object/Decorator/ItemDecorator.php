@@ -19,10 +19,15 @@ class ItemDecorator implements ObjectDecorator
 
     public function decorate(SimpleXMLElement $element): void
     {
-        $element->addChild("title", $this->source->getTitle());
-        $element->addChild("link", $this->source->getLink());
-        $element->addChild("description", $this->source->getDescription());
-
+        if($this->source->getTitle() !== null) {
+            $element->addChild("title", $this->source->getTitle());
+        }
+        if($this->source->getLink() !== null){
+            $element->addChild("link", $this->source->getLink());
+        }
+        if($this->source->getDescription() !== null) {
+            $element->addChild("description", $this->source->getDescription());
+        }
         if($this->source->getAuthor() !== null) {
             $element->addChild("author", $this->source->getAuthor());
         }
@@ -42,7 +47,8 @@ class ItemDecorator implements ObjectDecorator
             $propertyDecorator = new AttributedPropertyDecorator($this->source->getGuid());
             $propertyDecorator->decorate($guidElement);
         }
-
-        $element->addChild("pubDate", $this->source->getPubDate());
+        if($this->source->getPubDate() !== null) {
+            $element->addChild("pubDate", $this->source->getPubDate());
+        }
     }
 }

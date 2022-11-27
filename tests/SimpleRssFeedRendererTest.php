@@ -28,6 +28,8 @@ class SimpleRssFeedRendererTest extends TestCase
             ->withChannelGenerator()
             ->withChannelDocs("https://funfacts.nl/docs")
             ->withChannelTtl(60)
+            ->withChannelSkipHours(array(0,1,2,3,4,5,21,22,23))
+            ->withChannelSkipDays(array("Saturday", "Sunday"))
             ->addItem()
                 ->withTitle("TestTitle")
                 ->withDescription("TestDescription")
@@ -84,6 +86,8 @@ class SimpleRssFeedRendererTest extends TestCase
         $this->validate($resultChannel, "generator", "rwslinkman/simple-rss-feed-renderer");
         $this->validate($resultChannel, "docs", "https://funfacts.nl/docs");
         $this->validate($resultChannel, "ttl", 60);
+        $this->validateWithChildren($resultChannel, "skipDays", "day", array("Saturday", "Sunday"));
+        $this->validateWithChildren($resultChannel, "skipHours", "hour", array(0,1,2,3,4,5,21,22,23));
         // Channel image validation
         $imageElement = $this->nodeByTagName($resultChannel->childNodes, "image");
         $this->assertNotNull($imageElement);
@@ -227,5 +231,15 @@ class SimpleRssFeedRendererTest extends TestCase
         $this->assertEquals("https://funfacts.nl/articles", $atomLinkElement->getAttribute("href"));
         $this->assertEquals("self", $atomLinkElement->getAttribute("rel"));
         $this->assertEquals("application/rss+xml", $atomLinkElement->getAttribute("type"));
+    }
+
+    private function validateWithChildren(DOMNode $resultChannel, string $tagName, string $childTagName, $expectedValues = array()): void {
+        $parentElement = $this->nodeByTagName($resultChannel->childNodes, $tagName);
+        $this->assertNotNull($parentElement);
+        foreach($expectedValues as $i => $expectation) {
+            $childElement = $this->nodeByTagName($parentElement->childNodes, $childTagName, $i + 1);
+            $this->assertNotNull($childElement);
+            $this->assertEquals($expectation, $childElement->textContent);
+        }
     }
 }

@@ -25,8 +25,8 @@ class RssChannel
     private ?RssChannelImage $image = null;
 //    private string $rating;
 //    private object $textInput;
-//    private object $skipHours;
-//    private object $skipDays;
+    private ?array $skipHours = null;
+    private ?array $skipDays = null;
 
     /**
      * @return string
@@ -234,6 +234,38 @@ class RssChannel
     public function setTtl(?int $ttl): void
     {
         $this->ttl = $ttl;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getSkipHours(): ?array
+    {
+        return $this->skipHours;
+    }
+
+    /**
+     * @param array|null $skipHours
+     */
+    public function setSkipHours(?array $skipHours): void
+    {
+        $this->skipHours = $skipHours;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getSkipDays(): ?array
+    {
+        return $this->skipDays;
+    }
+
+    /**
+     * @param array|null $skipDays
+     */
+    public function setSkipDays(?array $skipDays): void
+    {
+        $this->skipDays = $skipDays;
     }
 
     /**

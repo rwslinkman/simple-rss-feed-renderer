@@ -3,6 +3,7 @@ namespace nl\rwslinkman\SimpleRssFeedRenderer\Builder;
 
 use DateTime;
 use DateTimeInterface;
+use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssAttributedProperty;
 use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssChannel;
 use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssChannelImage;
 use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssFeed;
@@ -25,13 +26,13 @@ class FeedBuilder
     private ?string $channelCategory = null;
     private ?string $channelGenerator = null;
     private ?string $channelDocs = null;
-//    private ?object $channelCloud = null;
+//    private ?RssAttributedProperty $channelCloud = null;
     private ?int $channelTtl = null;
     private ?RssChannelImage $channelImage = null;
 //    private ?string $channelRating = null;
 //    private ?object $channelTextInput = null;
-//    private ?object $channelSkipHours = null;
-//    private ?object $channelSkipDays = null;
+    private ?array $channelSkipHours = null;
+    private ?array $channelSkipDays = null;
 
     public function __construct() {
         $this->channelTitle = "";
@@ -60,6 +61,8 @@ class FeedBuilder
         $channel->setDocs($this->channelDocs);
         $channel->setTtl($this->channelTtl);
         $channel->setImage($this->channelImage);
+        $channel->setSkipHours($this->channelSkipHours);
+        $channel->setSkipDays($this->channelSkipDays);
         // Add items individually
         foreach($this->items as $item) {
             $channel->addItem($item);
@@ -132,6 +135,16 @@ class FeedBuilder
 
     public function withChannelTtl(int $ttl): static {
         $this->channelTtl = $ttl;
+        return $this;
+    }
+
+    public function withChannelSkipHours(array $skipHours): static {
+        $this->channelSkipHours = $skipHours;
+        return $this;
+    }
+
+    public function withChannelSkipDays(array $skipDays): static {
+        $this->channelSkipDays = $skipDays;
         return $this;
     }
 

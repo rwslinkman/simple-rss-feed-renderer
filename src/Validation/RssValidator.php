@@ -13,6 +13,8 @@ use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelLastBuildDa
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelLinkValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelManagingEditorValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelPubDateValidator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelSkipDaysValidator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelSkipHoursValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelTitleValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelTtlValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ChannelWebMasterValidator;
@@ -54,6 +56,8 @@ class RssValidator
         $this->validations[] = new ChannelDocsValidator();
         $this->validations[] = new ChannelTtlValidator();
         $this->validations[] = new ChannelImageValidator();
+        $this->validations[] = new ChannelSkipHoursValidator();
+        $this->validations[] = new ChannelSkipDaysValidator();
         // Item validations
         $this->itemValidations[] = new ItemMinimalValidator();
         $this->itemValidations[] = new ItemTitleValidator();
