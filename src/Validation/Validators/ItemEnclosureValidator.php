@@ -37,11 +37,11 @@ class ItemEnclosureValidator implements ItemValidator
             }
 
             if(!in_array("length", $remainingAttrNames)) {
-                return ValidationResult::invalid("The enclosure 'length' attribute of RSS item $itemIndex has to be a positive number");
+                return ValidationResult::invalid("The enclosure 'length' attribute of RSS item $itemIndex has to be a non-negative number");
             } else {
                 $length = $attributes["length"];
-                if(!is_numeric($length) || $length <= 0) {
-                    return ValidationResult::invalid("The enclosure 'length' attribute of RSS item $itemIndex has to be a positive number");
+                if(!is_numeric($length) || $length < 0) {
+                    return ValidationResult::invalid("The enclosure 'length' attribute of RSS item $itemIndex has to be a non-negative number");
                 }
                 $remainingAttrNames = array_diff($remainingAttrNames, array("length"));
             }

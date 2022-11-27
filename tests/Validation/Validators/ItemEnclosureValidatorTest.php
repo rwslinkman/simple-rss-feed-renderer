@@ -95,9 +95,8 @@ class ItemEnclosureValidatorTest extends TestCase
             array(null, "    ", 100, "image/jpeg", "The enclosure 'url' attribute of RSS item 0 has to be a valid URL"),
             array(null, "not-an-url", 100, "image/jpeg", "The enclosure 'url' attribute of RSS item 0 has to be a valid URL"),
             // length
-            array(null, "https://test.com/media.jpeg", null, "image/jpeg", "The enclosure 'length' attribute of RSS item 0 has to be a positive number"),
-            array(null, "https://test.com/media.jpeg", 0, "image/jpeg", "The enclosure 'length' attribute of RSS item 0 has to be a positive number"),
-            array(null, "https://test.com/media.jpeg", -1, "image/jpeg", "The enclosure 'length' attribute of RSS item 0 has to be a positive number"),
+            array(null, "https://test.com/media.jpeg", null, "image/jpeg", "The enclosure 'length' attribute of RSS item 0 has to be a non-negative number"),
+            array(null, "https://test.com/media.jpeg", -1, "image/jpeg", "The enclosure 'length' attribute of RSS item 0 has to be a non-negative number"),
             // type
             array(null, "https://test.com/media.jpeg", 100, null, "The enclosure 'type' attribute of RSS item 0 has to be a valid mime type"),
             array(null, "https://test.com/media.jpeg", 100, "", "The enclosure 'type' attribute of RSS item 0 has to be a valid mime type"),
