@@ -110,7 +110,7 @@ class SimpleRssFeedRendererTest extends TestCase
         $this->validate($itemElement, "link", "https://test2.com");
         $this->validate($itemElement, "pubDate",  $testDate->format(DATE_RSS));
         $this->validate($itemElement, "description",  "TestDescription2");
-        $this->validate($itemElement, "guid", "https://test.com/testtitle2", array("isPermalink" => "false"));
+        $this->validate($itemElement, "guid", "https://test.com/testtitle2", array("isPermaLink" => "false"));
     }
 
     function testGivenFeedWithOneItem_andPrettyPrintConfigured_whenRender_thenShouldReturnValidRssXml() {

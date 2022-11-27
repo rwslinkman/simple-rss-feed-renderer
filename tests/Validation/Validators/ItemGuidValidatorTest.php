@@ -52,7 +52,7 @@ class ItemGuidValidatorTest extends TestCase
     }
 
     function testGivenGuidWithValidPermalinkTrueAttribute_whenValidate_thenShouldReturnValidResult() {
-        $testItem = $this->buildRssItemWithGuid("some guid value, any string goes", array("isPermalink" => true));
+        $testItem = $this->buildRssItemWithGuid("some guid value, any string goes", array("isPermaLink" => true));
         $validator = new ItemGuidValidator();
 
         $result = $validator->validate($testItem, 0);
@@ -62,7 +62,7 @@ class ItemGuidValidatorTest extends TestCase
     }
 
     function testGivenGuidWithValidPermalinkFalseAttribute_whenValidate_thenShouldReturnValidResult() {
-        $testItem = $this->buildRssItemWithGuid("some guid value, any string goes", array("isPermalink" => false));
+        $testItem = $this->buildRssItemWithGuid("some guid value, any string goes", array("isPermaLink" => false));
         $validator = new ItemGuidValidator();
 
         $result = $validator->validate($testItem, 0);
@@ -72,33 +72,33 @@ class ItemGuidValidatorTest extends TestCase
     }
 
     function testGivenGuidWithStringPermalinkAttribute_whenValidate_thenShouldReturnInvalidResult() {
-        $testItem = $this->buildRssItemWithGuid("some guid value, any string goes", array("isPermalink" => "wrong"));
+        $testItem = $this->buildRssItemWithGuid("some guid value, any string goes", array("isPermaLink" => "wrong"));
         $validator = new ItemGuidValidator();
 
         $result = $validator->validate($testItem, 0);
 
         $this->assertFalse($result->isValid());
-        $this->assertEquals("isPermalink attribute of 'guid' of RSS item 0 must be boolean", $result->getErrorMessage());
+        $this->assertEquals("isPermaLink attribute of 'guid' of RSS item 0 must be boolean", $result->getErrorMessage());
     }
 
     function testGivenGuidWithNumberPermalinkAttribute_whenValidate_thenShouldReturnInvalidResult() {
-        $testItem = $this->buildRssItemWithGuid("some guid value, any string goes", array("isPermalink" => 1337));
+        $testItem = $this->buildRssItemWithGuid("some guid value, any string goes", array("isPermaLink" => 1337));
         $validator = new ItemGuidValidator();
 
         $result = $validator->validate($testItem, 0);
 
         $this->assertFalse($result->isValid());
-        $this->assertEquals("isPermalink attribute of 'guid' of RSS item 0 must be boolean", $result->getErrorMessage());
+        $this->assertEquals("isPermaLink attribute of 'guid' of RSS item 0 must be boolean", $result->getErrorMessage());
     }
 
     function testGivenGuidWithExtraAttribute_whenValidate_thenShouldReturnInvalidResult() {
-        $testItem = $this->buildRssItemWithGuid("some guid value, any string goes", array("isPermalink" => true, "somethingElse" => "not allowed"));
+        $testItem = $this->buildRssItemWithGuid("some guid value, any string goes", array("isPermaLink" => true, "somethingElse" => "not allowed"));
         $validator = new ItemGuidValidator();
 
         $result = $validator->validate($testItem, 0);
 
         $this->assertFalse($result->isValid());
-        $this->assertEquals("Property 'guid' of RSS item 0 can only have isPermalink attribute", $result->getErrorMessage());
+        $this->assertEquals("Property 'guid' of RSS item 0 can only have isPermaLink attribute", $result->getErrorMessage());
     }
 
     function testGivenGuidWithOtherAttribute_whenValidate_thenShouldReturnInvalidResult() {
@@ -108,7 +108,7 @@ class ItemGuidValidatorTest extends TestCase
         $result = $validator->validate($testItem, 0);
 
         $this->assertFalse($result->isValid());
-        $this->assertEquals("Property 'guid' of RSS item 0 can only have isPermalink attribute", $result->getErrorMessage());
+        $this->assertEquals("Property 'guid' of RSS item 0 can only have isPermaLink attribute", $result->getErrorMessage());
     }
 
     /**

@@ -23,16 +23,16 @@ class ItemGuidValidator implements ItemValidator
         $attributes = $guid->getAttributeMap();
         $attrNames = array_keys($attributes);
         if(count($attrNames) > 0) {
-            if(in_array("isPermalink", $attrNames)) {
-                $isPermalinkAttr = $attributes['isPermalink'];
-                if(!is_bool($isPermalinkAttr)) {
-                    return ValidationResult::invalid("isPermalink attribute of 'guid' of RSS item $itemIndex must be boolean");
+            if(in_array("isPermaLink", $attrNames)) {
+                $isPermaLinkAttr = $attributes['isPermaLink'];
+                if(!is_bool($isPermaLinkAttr)) {
+                    return ValidationResult::invalid("isPermaLink attribute of 'guid' of RSS item $itemIndex must be boolean");
                 }
             }
 
-            $remainingAttrNames = array_diff($attrNames, array("isPermalink"));
+            $remainingAttrNames = array_diff($attrNames, array("isPermaLink"));
             if(count($remainingAttrNames) > 0) {
-                return ValidationResult::invalid("Property 'guid' of RSS item $itemIndex can only have isPermalink attribute");
+                return ValidationResult::invalid("Property 'guid' of RSS item $itemIndex can only have isPermaLink attribute");
             }
         }
         return ValidationResult::ok();

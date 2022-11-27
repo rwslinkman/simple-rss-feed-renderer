@@ -78,11 +78,11 @@ class FeedItemBuilder
         return $this;
     }
 
-    public function withGuid(string $guid, ?bool $isPermalink = null): static {
+    public function withGuid(string $guid, ?bool $isPermaLink = null): static {
         $this->guid = new RssAttributedProperty();
         $this->guid->setValue($guid);
-        if($isPermalink !== null) {
-            $this->guid->setAttributeMap(array("isPermalink" => $isPermalink));
+        if($isPermaLink !== null) {
+            $this->guid->setAttributeMap(array("isPermaLink" => $isPermaLink));
         }
         return $this;
     }
