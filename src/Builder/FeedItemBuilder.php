@@ -3,6 +3,7 @@ namespace nl\rwslinkman\SimpleRssFeedRenderer\Builder;
 
 use DateTime;
 use DateTimeInterface;
+use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssAttributedProperty;
 use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssItem;
 
 class FeedItemBuilder
@@ -17,7 +18,7 @@ class FeedItemBuilder
     private ?string $category = null;
     private ?string $comments = null;
 //    private ?object $enclosure;
-//    private ?object $guid;
+    private ?RssAttributedProperty $guid = null;
     private ?DateTime $pubDate = null;
 //    private ?object $source;
 
@@ -37,6 +38,7 @@ class FeedItemBuilder
         $item->setAuthor($this->author);
         $item->setCategory($this->category);
         $item->setComments($this->comments);
+        $item->setGuid($this->guid);
         $item->setPubDate($pubDate);
 
         $this->parentBuilder->withBuiltItem($item);
@@ -73,6 +75,15 @@ class FeedItemBuilder
 
     public function withComments(string $comments): static {
         $this->comments = $comments;
+        return $this;
+    }
+
+    public function withGuid(string $guid, ?bool $isPermalink = null): static {
+        $this->guid = new RssAttributedProperty();
+        $this->guid->setValue($guid);
+        if($isPermalink !== null) {
+            $this->guid->setAttributeMap(array("isPermalink" => $isPermalink));
+        }
         return $this;
     }
 

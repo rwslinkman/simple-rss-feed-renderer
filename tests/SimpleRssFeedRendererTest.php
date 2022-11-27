@@ -33,6 +33,7 @@ class SimpleRssFeedRendererTest extends TestCase
                 ->withAuthor("author@test.com")
                 ->withCategory("TestCategory")
                 ->withComments("https://test.com/testtitle/comment-section")
+                ->withGuid("https://test.com/testtitle")
                 ->withPubDate($testDate)
             ->buildItem()
             ->addImage()
@@ -47,6 +48,7 @@ class SimpleRssFeedRendererTest extends TestCase
                 ->withTitle("TestTitle2")
                 ->withDescription("TestDescription2")
                 ->withLink("https://test2.com")
+                ->withGuid("https://test.com/testtitle2", false)
                 ->withPubDate($testDate)
             ->buildItem();
         $feed = $feedBuilder->build();
@@ -99,6 +101,7 @@ class SimpleRssFeedRendererTest extends TestCase
         $this->validate($itemElement, "author", "author@test.com");
         $this->validate($itemElement, "category", "TestCategory");
         $this->validate($itemElement, "comments", "https://test.com/testtitle/comment-section");
+        $this->validate($itemElement, "guid", "https://test.com/testtitle");
 
         // Item 2 validation
         $itemElement = $this->nodeByTagName($resultChannel->childNodes, "item", 2);
@@ -107,6 +110,7 @@ class SimpleRssFeedRendererTest extends TestCase
         $this->validate($itemElement, "link", "https://test2.com");
         $this->validate($itemElement, "pubDate",  $testDate->format(DATE_RSS));
         $this->validate($itemElement, "description",  "TestDescription2");
+        $this->validate($itemElement, "guid", "https://test.com/testtitle2", array("isPermalink" => "false"));
     }
 
     function testGivenFeedWithOneItem_andPrettyPrintConfigured_whenRender_thenShouldReturnValidRssXml() {
@@ -192,11 +196,21 @@ class SimpleRssFeedRendererTest extends TestCase
         return null;
     }
 
-    private function validate(\DOMNode $parent, $tagName, $expectedValue) {
+    private function validate(\DOMNode $parent, $tagName, $expectedValue, $expectedAttributes = array()) {
         // Channel description validation
         $descriptionElement = $this->nodeByTagName($parent->childNodes, $tagName);
         $this->assertNotNull($descriptionElement);
         $this->assertEquals($expectedValue, $descriptionElement->textContent);
+
+        foreach($expectedAttributes as $name => $value) {
+            /** @var \DOMNamedNodeMap $attrs */
+            $attrs = $descriptionElement->attributes;
+            $this->assertNotNull($attrs);
+            $attr = $attrs->getNamedItem($name);
+            $this->assertNotNull($attr);
+            $this->assertEquals($value, $attr->textContent);
+        }
+
     }
 
     /**

@@ -13,7 +13,7 @@ class RssItem
     private ?string $category = null;
     private ?string $comments = null;
 //    private object $enclosure;
-//    private object $guid;
+    private ?RssAttributedProperty $guid = null;
     private ?string $pubDate = null;
 //    private object $source;
 
@@ -31,6 +31,10 @@ class RssItem
         }
         if($this->comments !== null) {
             $rssItem->addChild("comments", $this->getComments());
+        }
+        if($this->guid != null) {
+            $guidElement = $rssItem->addChild("guid");
+            $this->getGuid()->decorate($guidElement);
         }
 
         $rssItem->addChild("pubDate", $this->getPubDate());
@@ -130,6 +134,22 @@ class RssItem
     public function setComments(?string $comments): void
     {
         $this->comments = $comments;
+    }
+
+    /**
+     * @return RssAttributedProperty|null
+     */
+    public function getGuid(): ?RssAttributedProperty
+    {
+        return $this->guid;
+    }
+
+    /**
+     * @param RssAttributedProperty|null $guid
+     */
+    public function setGuid(?RssAttributedProperty $guid): void
+    {
+        $this->guid = $guid;
     }
 
     /**
