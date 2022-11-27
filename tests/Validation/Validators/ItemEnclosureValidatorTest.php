@@ -47,7 +47,7 @@ class ItemEnclosureValidatorTest extends TestCase
         $result = $validator->validate($item, 0);
 
         $this->assertFalse($result->isValid());
-        $this->assertEquals("", $result->getErrorMessage());
+        $this->assertEquals("The enclosure of RSS item 0 can only have url, length and type attributes", $result->getErrorMessage());
     }
 
     function testGivenEnclosureWithOtherAttribute_whenValidate_thenShouldReturnInvalidResult() {
@@ -62,7 +62,6 @@ class ItemEnclosureValidatorTest extends TestCase
         $result = $validator->validate($item, 0);
 
         $this->assertFalse($result->isValid());
-        $this->assertEquals("", $result->getErrorMessage());
     }
 
     /**
@@ -88,8 +87,8 @@ class ItemEnclosureValidatorTest extends TestCase
     {
         return array(
             // value
-            array("invalid", "", 100, "image/jpeg", "The enclosure of RSS item 0 cannot have a value"),
-            array(1337, "", 100, "image/jpeg", "The enclosure of RSS item 0 cannot have a value"),
+            array("invalid", "https://test.com/media.jpeg", 100, "image/jpeg", "The enclosure of RSS item 0 cannot have a value"),
+            array(1337, "https://test.com/media.jpeg", 100, "image/jpeg", "The enclosure of RSS item 0 cannot have a value"),
             // url
             array(null, null, 100, "image/jpeg", "The enclosure 'url' attribute of RSS item 0 has to be a valid URL"),
             array(null, "", 100, "image/jpeg", "The enclosure 'url' attribute of RSS item 0 has to be a valid URL"),
@@ -100,8 +99,9 @@ class ItemEnclosureValidatorTest extends TestCase
             array(null, "https://test.com/media.jpeg", 0, "image/jpeg", "The enclosure 'length' attribute of RSS item 0 has to be a positive number"),
             array(null, "https://test.com/media.jpeg", -1, "image/jpeg", "The enclosure 'length' attribute of RSS item 0 has to be a positive number"),
             // type
+            array(null, "https://test.com/media.jpeg", 100, null, "The enclosure 'type' attribute of RSS item 0 has to be a valid mime type"),
             array(null, "https://test.com/media.jpeg", 100, "", "The enclosure 'type' attribute of RSS item 0 has to be a valid mime type"),
-            array(null, "https://test.com/media.jpeg", 100, "   ", "The enclosure 'url' attribute of RSS item 0 has to be a valid mime type"),
+            array(null, "https://test.com/media.jpeg", 100, "   ", "The enclosure 'type' attribute of RSS item 0 has to be a valid mime type"),
         );
     }
 

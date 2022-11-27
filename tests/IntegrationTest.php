@@ -5,11 +5,12 @@ use DateTime;
 use nl\rwslinkman\SimpleRssFeedRenderer\Builder\FeedBuilder;
 use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssFeed;
 use nl\rwslinkman\SimpleRssFeedRenderer\SimpleRssFeedRenderer;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\RssValidator;
 use PHPUnit\Framework\TestCase;
 
 class IntegrationTest extends TestCase
 {
-    public function testReadMeSample() {
+    function testReadMeSample() {
         $rssFeed = $this->createTestFeed();
 
         // Rendering the RSS feed
@@ -21,7 +22,18 @@ class IntegrationTest extends TestCase
         $this->assertNotEquals("", $rssXml);
     }
 
-    private function createTestArticle($id, $title, $subtitle) {
+    function testRssValidatorSample() {
+        $rssFeed = $this->createTestFeed();
+        $validator = new RssValidator();
+
+        // Validates the object against RSS 2.0 specification, throws InvalidRssException for invalid data
+        $validator->validate($rssFeed);
+
+        $this->assertTrue(true); // dummy for PHPUnit
+    }
+
+    private function createTestArticle($id, $title, $subtitle): array
+    {
         return array('id' => $id, 'title' => $title, 'subtitle' => $subtitle, 'createdAt' => new DateTime());
     }
 
