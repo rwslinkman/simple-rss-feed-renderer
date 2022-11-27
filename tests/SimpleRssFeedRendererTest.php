@@ -5,6 +5,8 @@ use DateTime;
 use DateTimeInterface;
 use DOMDocument;
 use DOMElement;
+use DOMNamedNodeMap;
+use DOMNode;
 use nl\rwslinkman\SimpleRssFeedRenderer\Builder\FeedBuilder;
 use nl\rwslinkman\SimpleRssFeedRenderer\SimpleRssFeedRenderer;
 use PHPUnit\Framework\TestCase;
@@ -33,6 +35,7 @@ class SimpleRssFeedRendererTest extends TestCase
                 ->withAuthor("author@test.com")
                 ->withCategory("TestCategory")
                 ->withComments("https://test.com/testtitle/comment-section")
+                ->withEnclosure("https://test.com/testtitle.mp3", "12216320", "audio/mpeg")
                 ->withGuid("https://test.com/testtitle")
                 ->withPubDate($testDate)
             ->buildItem()
@@ -102,6 +105,7 @@ class SimpleRssFeedRendererTest extends TestCase
         $this->validate($itemElement, "category", "TestCategory");
         $this->validate($itemElement, "comments", "https://test.com/testtitle/comment-section");
         $this->validate($itemElement, "guid", "https://test.com/testtitle");
+        $this->validate($itemElement, "enclosure", null, array("url" => "https://test.com/testtitle.mp3", "length" => 12216320, "type" => "audio/mpeg"));
 
         // Item 2 validation
         $itemElement = $this->nodeByTagName($resultChannel->childNodes, "item", 2);
@@ -196,28 +200,27 @@ class SimpleRssFeedRendererTest extends TestCase
         return null;
     }
 
-    private function validate(\DOMNode $parent, $tagName, $expectedValue, $expectedAttributes = array()) {
+    private function validate(DOMNode $parent, $tagName, $expectedValue, $expectedAttributes = array()) {
         // Channel description validation
         $descriptionElement = $this->nodeByTagName($parent->childNodes, $tagName);
         $this->assertNotNull($descriptionElement);
         $this->assertEquals($expectedValue, $descriptionElement->textContent);
 
         foreach($expectedAttributes as $name => $value) {
-            /** @var \DOMNamedNodeMap $attrs */
+            /** @var DOMNamedNodeMap $attrs */
             $attrs = $descriptionElement->attributes;
             $this->assertNotNull($attrs);
             $attr = $attrs->getNamedItem($name);
             $this->assertNotNull($attr);
             $this->assertEquals($value, $attr->textContent);
         }
-
     }
 
     /**
-     * @param \DOMNode|null $resultChannel
+     * @param DOMNode|null $resultChannel
      * @return void
      */
-    private function validateAtomLink(?\DOMNode $resultChannel): void
+    private function validateAtomLink(?DOMNode $resultChannel): void
     {
         $atomLinkElement = $this->nodeByTagName($resultChannel->childNodes, "atom:link");
         $this->assertNotNull($atomLinkElement);

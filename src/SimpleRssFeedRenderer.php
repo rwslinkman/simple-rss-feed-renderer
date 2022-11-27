@@ -1,6 +1,8 @@
 <?php
 namespace nl\rwslinkman\SimpleRssFeedRenderer;
 
+use nl\rwslinkman\SimpleRssFeedRenderer\Object\Decorator\ChannelDecorator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Object\Decorator\ItemDecorator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Object\RssFeed;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\RssValidator;
 use SimpleXMLElement;
@@ -25,12 +27,14 @@ class SimpleRssFeedRenderer implements FeedRendererInterface
         $rss->addAttribute("version", "2.0");
 
         $rssChannel = $rss->addChild("channel");
-        $feedChannel->decorate($rssChannel);
+        $channelDecorator = new ChannelDecorator($feedChannel);
+        $channelDecorator->decorate($rssChannel);
 
         // foreach item in channel
         foreach($feedChannel->getItems() as $item) {
             $rssItem = $rssChannel->addChild("item");
-            $item->decorate($rssItem);
+            $itemDecorator = new ItemDecorator($item);
+            $itemDecorator->decorate($rssItem);
         }
 
         if($this->prettyPrintEnabled) {

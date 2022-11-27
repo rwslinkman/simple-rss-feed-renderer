@@ -17,21 +17,6 @@ class RssChannelImage
     private ?int $height;
     private ?string $description;
 
-    public function decorate(SimpleXMLElement $rssItem) {
-        $rssItem->addChild("url", $this->getUrl());
-        $rssItem->addChild("title", $this->getTitle());
-        $rssItem->addChild("link", $this->getLink());
-        if($this->width != null) {
-            $rssItem->addChild("width", $this->getWidth());
-        }
-        if($this->width != null) {
-            $rssItem->addChild("height", $this->getHeight());
-        }
-        if($this->description != null) {
-            $rssItem->addChild("description", $this->getDescription());
-        }
-    }
-
     /**
      * @return string
      */

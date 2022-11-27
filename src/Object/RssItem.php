@@ -1,8 +1,6 @@
 <?php
 namespace nl\rwslinkman\SimpleRssFeedRenderer\Object;
 
-use SimpleXMLElement;
-
 class RssItem
 {
     // Optional attributes
@@ -12,33 +10,10 @@ class RssItem
     private ?string $author = null;
     private ?string $category = null;
     private ?string $comments = null;
-//    private object $enclosure;
+    private ?RssAttributedProperty $enclosure = null;
     private ?RssAttributedProperty $guid = null;
     private ?string $pubDate = null;
 //    private object $source;
-
-    public function decorate(SimpleXMLElement $rssItem)
-    {
-        $rssItem->addChild("title", $this->getTitle());
-        $rssItem->addChild("link", $this->getLink());
-        $rssItem->addChild("description", $this->getDescription());
-
-        if($this->author !== null) {
-            $rssItem->addChild("author", $this->getAuthor());
-        }
-        if($this->category !== null) {
-            $rssItem->addChild("category", $this->getCategory());
-        }
-        if($this->comments !== null) {
-            $rssItem->addChild("comments", $this->getComments());
-        }
-        if($this->guid != null) {
-            $guidElement = $rssItem->addChild("guid");
-            $this->getGuid()->decorate($guidElement);
-        }
-
-        $rssItem->addChild("pubDate", $this->getPubDate());
-    }
 
     /**
      * @return string|null
@@ -150,6 +125,22 @@ class RssItem
     public function setGuid(?RssAttributedProperty $guid): void
     {
         $this->guid = $guid;
+    }
+
+    /**
+     * @return RssAttributedProperty|null
+     */
+    public function getEnclosure(): ?RssAttributedProperty
+    {
+        return $this->enclosure;
+    }
+
+    /**
+     * @param RssAttributedProperty|null $enclosure
+     */
+    public function setEnclosure(?RssAttributedProperty $enclosure): void
+    {
+        $this->enclosure = $enclosure;
     }
 
     /**

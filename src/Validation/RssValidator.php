@@ -20,6 +20,8 @@ use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ItemAuthorValidato
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ItemCategoryValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ItemCommentsValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ItemDescriptionValidator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ItemEnclosureValidator;
+use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ItemGuidValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ItemLinkValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ItemMinimalValidator;
 use nl\rwslinkman\SimpleRssFeedRenderer\Validation\Validators\ItemPubDateValidator;
@@ -59,6 +61,8 @@ class RssValidator
         $this->itemValidations[] = new ItemDescriptionValidator();
         $this->itemValidations[] = new ItemAuthorValidator();
         $this->itemValidations[] = new ItemCategoryValidator();
+        $this->itemValidations[] = new ItemGuidValidator();
+        $this->itemValidations[] = new ItemEnclosureValidator();
         $this->itemValidations[] = new ItemCommentsValidator();
         $this->itemValidations[] = new ItemPubDateValidator();
     }

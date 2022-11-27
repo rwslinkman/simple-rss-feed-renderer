@@ -6,29 +6,21 @@ use SimpleXMLElement;
 
 class RssAttributedProperty
 {
-    private string $value = "";
+    private ?string $value = null;
     private array $attributeMap = array();
 
-    public function decorate(SimpleXMLElement $guidElement)
-    {
-        $guidElement[0] = $this->value;
-        foreach($this->getAttributeMap() as $attributeName => $attributeValue) {
-            $guidElement->addAttribute($attributeName, var_export($attributeValue, true));
-        }
-    }
-
     /**
-     * @return string
+     * @return string|null
      */
-    public function getValue(): string
+    public function getValue(): ?string
     {
         return $this->value;
     }
 
     /**
-     * @param string $value
+     * @param string|null $value
      */
-    public function setValue(string $value): void
+    public function setValue(?string $value): void
     {
         $this->value = $value;
     }

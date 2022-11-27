@@ -17,11 +17,10 @@ class FeedItemBuilder
     private ?string $author = null;
     private ?string $category = null;
     private ?string $comments = null;
-//    private ?object $enclosure;
+    private ?RssAttributedProperty $enclosure = null;
     private ?RssAttributedProperty $guid = null;
     private ?DateTime $pubDate = null;
 //    private ?object $source;
-
 
     public function __construct(FeedBuilder $parent)
     {
@@ -38,6 +37,7 @@ class FeedItemBuilder
         $item->setAuthor($this->author);
         $item->setCategory($this->category);
         $item->setComments($this->comments);
+        $item->setEnclosure($this->enclosure);
         $item->setGuid($this->guid);
         $item->setPubDate($pubDate);
 
@@ -75,6 +75,24 @@ class FeedItemBuilder
 
     public function withComments(string $comments): static {
         $this->comments = $comments;
+        return $this;
+    }
+
+    public function withEnclosure(?string $url, ?int $length, ?string $type): static {
+        $this->enclosure = new RssAttributedProperty();
+        $attributes = array();
+        if($url !== null) {
+            $attributes['url'] = $url;
+        }
+        if($length !== null) {
+            $attributes['length'] = $length;
+        }
+        if($type !== null) {
+            $attributes['type'] = $type;
+        }
+        if(count($attributes) > 0) {
+            $this->enclosure->setAttributeMap($attributes);
+        }
         return $this;
     }
 
